@@ -6,10 +6,11 @@ app_name = 'quotes'
 urlpatterns = [
     path('', views.main, name='main'),              # default
     # path('<int:page>', views.main, name='main_paginated'),              # next page
-    path('tag/', views.tag, name='tag'),            # edit tags
+    path('add/', views.add_quote, name='add_quote'),   # add quote
+    path('tag/', views.tag, name='tag'),
+    path('author/', views.author, name='author'),              # default
+    path('author/add/', views.add_author, name='add_author'),   # add author
 
-
-    # path('detail/<int:quote_id>', views.detail, name='detail'),
-    # path('delete/<int:quote_id>', views.delete_quote, name='delete_quote'),
-    # path('delete/<int:tag_id>', views.delete_tag, name='delete_tag'),
+    path('author_detail/<int:author_id>/', views.author_detail, name='author_detail'),
+    path('quote_detail/<int:quote_id>/', views.quote_detail, name='quote_detail'),
 ]

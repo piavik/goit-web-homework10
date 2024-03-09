@@ -11,9 +11,10 @@ class RegisterForm(UserCreationForm):
     password1 = CharField(max_length=50,
                           required=True,
                           widget=PasswordInput())
+                          
     password2 = CharField(max_length=50,
                           required=True,
-                        widget=PasswordInput())
+                          widget=PasswordInput())
 
     class Meta:
         model = User
