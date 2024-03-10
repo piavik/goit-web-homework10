@@ -10,10 +10,7 @@
                 {{quote.quote}}
             </span>
             <span>by <small class="author" itemprop="author">{{quote.author}}</small>
-                <a href="/author/{{quote.author}}">(about)</a>"
-                {% comment %}
-                <a href="{% url 'quotes:author_detail' author_id=quote.author %}">(about)</a> 
-                {% endcomment %}
+                <a href="{% url 'quotes:author_detail' author_id=quote.author.id %}">(about)</a>
             </span>
             </span>
             <div class="tags">

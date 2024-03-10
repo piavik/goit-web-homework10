@@ -13,7 +13,7 @@ urlpatterns = [
     # path('tags/', views.tag, name='tags'),
 
     path('author/add/', views.add_author, name='add_author'),   # add author
-    path('author/<str:author_fullname>/', views.author_detail, name='author_detail'),
+    path('author/<str:author_id>/', views.author_detail, name='author_detail'),
 
     # path('author/', views.author, name='author'),              # default?
 
