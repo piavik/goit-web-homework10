@@ -11,15 +11,19 @@ def main(request, page=1):
     pages = 10
     paginator = Paginator(quotes, pages)
     quotes_page = paginator.page(page)
-    return render(request, 'quotes/index.html', context={"quotes": quotes_page, "page": page}) #, "authors": authors})
+    return render(request, 'quotes/index.html', context={"quotes": quotes_page, "page": page})
 
 def tag(request):
     tags = Tag.objects.all()
-    return render(request, 'quotes/index.html', context={"tags": tags})
+    return render(request, 'quotes/add_tag.html', context={"tags": tags})
 
-def tag_detail(request):
-    tags = Tag.objects.all()
-    return render(request, 'quotes/index.html', context={"tags": tags})
+def tag_detail(request, tag_id, page=1):
+    quotes = Quote.objects.filter(tags=tag_id)
+    pages = 10
+    paginator = Paginator(quotes, pages)
+    quotes_with_tags_page = paginator.page(page)
+    return render(request, 'quotes/index.html', context={"quotes": quotes_with_tags_page, "page": page})
+
 
 def search_by_tag(request):
     ...

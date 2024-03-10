@@ -16,10 +16,7 @@
             <div class="tags">
                 Tags: 
                 {% for tag in quote.tags.all %}
-                    <a class="tag" href="/tag/{{tag}}">{{tag}}</a>
-                {% comment %}
-                    <a class="tag" href="{% url 'quotes:tags' tag_id=tag %}">{{tag}}</a>
-                {% endcomment %}
+                    <a class="tag" href="{% url 'quotes:tags' tag_id=tag.id %}">{{tag}}</a>
                 {% endfor %}
             </div>
         </div>
