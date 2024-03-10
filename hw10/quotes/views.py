@@ -1,18 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 from .forms import TagForm, AuthorForm
 from .models import Quote, Tag, Author
 
 
 # Create your views here.
-def main(request):
+def main(request, page=1):
     quotes = Quote.objects.all()
-    # authors = Author.objects.all()
-    return render(request, 'quotes/index.html', context={"quotes": quotes}) #, "authors": authors})
-
-def main_paginated(request):
-    ...
-
+    pages = 10
+    paginator = Paginator(quotes, pages)
+    quotes_page = paginator.page(page)
+    return render(request, 'quotes/index.html', context={"quotes": quotes_page, "page": page}) #, "authors": authors})
 
 def tag(request):
     tags = Tag.objects.all()
@@ -23,9 +22,6 @@ def tag_detail(request):
     return render(request, 'quotes/index.html', context={"tags": tags})
 
 def search_by_tag(request):
-    ...
-
-def quote_detail(request):
     ...
 
 @login_required

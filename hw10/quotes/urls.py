@@ -8,7 +8,6 @@ urlpatterns = [
     path('page/<int:page>', views.main, name='main_paginated'),              # next page
 
     path('add/', views.add_quote, name='add_quote'),   # add quote
-    path('quote_detail/<int:quote_id>/', views.quote_detail, name='quote_detail'),
 
     path('tags/<int:tag_id>/', views.tag_detail, name='tags'),
     # path('tags/', views.tag, name='tags'),

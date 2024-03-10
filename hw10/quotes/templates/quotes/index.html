@@ -12,7 +12,7 @@
             <span>by <small class="author" itemprop="author">{{quote.author}}</small>
                 <a href="/author/{{quote.author}}">(about)</a>"
                 {% comment %}
-                <a href="{% url 'quotes:author' author_id=quote.author.id %}">(about)</a> 
+                <a href="{% url 'quotes:author_detail' author_id=quote.author %}">(about)</a> 
                 {% endcomment %}
             </span>
             </span>
@@ -30,8 +30,15 @@
 
         <nav>
             <ul class="pager">
+                <li class="previous">
+                    <a class="{% if not quotes.has_previous %} disabled {% endif %}"
+                       href="{% if quotes.has_previous %}{% url 'quotes:main_paginated' quotes.previous_page_number %}{% else %} #{% endif %}">
+                        <span aria-hidden="true">←</span> Previous</a>
+                </li>
                 <li class="next">
-                    <a href="/page/2/">Next <span aria-hidden="true">→</span></a>
+                    <a class="{% if not quotes.has_previous %} disabled {% endif %}"
+                       href="{% if quotes.has_next %}{% url 'quotes:main_paginated' quotes.next_page_number %}{% else %} #{% endif %}">
+                        Next <span aria-hidden="true">→</span></a>
                 </li>
             </ul>
         </nav>
