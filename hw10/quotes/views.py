@@ -7,25 +7,41 @@ from .models import Quote, Tag, Author
 # Create your views here.
 def main(request):
     quotes = Quote.objects.all()
-    authors = Author.objects.all()
-    return render(request, 'quotes/index.html', {"quotes": quotes, "authors": authors})
-
-def author(request):
-    quotes = Quote.objects.all()
-    authors = Author.objects.all()
-    return render(request, 'quotes/author.html', {"authors": authors})
+    # authors = Author.objects.all()
+    return render(request, 'quotes/index.html', context={"quotes": quotes}) #, "authors": authors})
 
 def main_paginated(request):
     ...
 
+
 def tag(request):
     tags = Tag.objects.all()
-    return render(request, 'quotes/index.html', {"tags": tags})
+    return render(request, 'quotes/index.html', context={"tags": tags})
+
+def tag_detail(request):
+    tags = Tag.objects.all()
+    return render(request, 'quotes/index.html', context={"tags": tags})
+
+def search_by_tag(request):
+    ...
+
+def quote_detail(request):
+    ...
 
 @login_required
 def add_quote(request, quote_id):
     Quote.objects.get(pk=quote_id, user=request.user).delete()
     return redirect(to='quotes:main')
+
+# def author(request):
+#     authors = Author.objects.all()
+#     quotes = Quote.objects.all()
+#     return render(request, 'quotes/author.html', context={"authors": authors})
+
+def author_detail(request):
+    author = get_object_or_404(Author, pk=author_id)
+    # quotes = Quote.objects.filter(author=author)
+    return render(request, 'quotes/author.html', context={"author": author})
 
 @login_required
 def add_author(request):
@@ -38,13 +54,5 @@ def add_author(request):
             new_author = form.save()
             return redirect(to='quotes:main')
         else:
-            return render(request, 'quotes/author.html', {"tags": tags, 'form': form})
+            return render(request, 'quotes/author.html', context={"tags": tags, 'form': form})
 
-def search_by_tag(reauest):
-    ...
-
-def author_detail(request):
-    ...
-
-def quote_detail(request):
-    ...

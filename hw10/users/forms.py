@@ -26,3 +26,10 @@ class LoginForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+
+class avatar(AuthenticationForm):
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']

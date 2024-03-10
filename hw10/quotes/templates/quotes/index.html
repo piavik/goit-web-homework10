@@ -9,15 +9,20 @@
             <span class="text" itemprop="text">
                 {{quote.quote}}
             </span>
-            <span>by <small class="author" itemprop="author">
-                {{quote.author}}
-            </small>
-            <a href="{% url /author/{{quote.author}} %}">(about)</a>
+            <span>by <small class="author" itemprop="author">{{quote.author}}</small>
+                <a href="/author/{{quote.author}}">(about)</a>"
+                {% comment %}
+                <a href="{% url 'quotes:author' author_id=quote.author.id %}">(about)</a> 
+                {% endcomment %}
+            </span>
             </span>
             <div class="tags">
                 Tags: 
-                {% for tag in quote.tags %}
-                <a class="tag" href="{% url 'quotes:tags' tag_name=tag %}">{{tag}}</a>
+                {% for tag in quote.tags.all %}
+                    <a class="tag" href="/tag/{{tag}}">{{tag}}</a>
+                {% comment %}
+                    <a class="tag" href="{% url 'quotes:tags' tag_id=tag %}">{{tag}}</a>
+                {% endcomment %}
                 {% endfor %}
             </div>
         </div>
