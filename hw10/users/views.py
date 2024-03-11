@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.views import View
 
 from .forms import RegisterForm, LoginForm, ProfileForm
 
@@ -19,6 +20,25 @@ def signupuser(request):
             return render(request, 'users/signup.html', context={"form": form})
 
     return render(request, 'users/signup.html', context={"form": RegisterForm()})
+
+
+class SignupView(View):
+    template_name = "users/signup.html"
+    form_class = RegisterForm
+
+    def get(self, request):
+        return render(request, self.template_name, {"form": self.form_class()})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been successfully created')
+            return redirect(to='users:login')
+        return render(request, self.template_name, {"form": form})
+        
+        
+
 
 def loginuser(request):
     if request.user.is_authenticated:
@@ -53,7 +73,22 @@ def profile(request):
     profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'users/profile.html', {'profile_form': profile_form})
 
+# @login_required
+# def password_change(request):
+#     ...
+
+# @login_required
+# def password_change_done(request):
+#     ...
+    
 def password_reset(request):
     ...
     
+def password_reset_done(request):
+    ...
 
+def password_reset_confirm(request):
+    ...
+    
+def password_reset_complete(request):
+    ...
