@@ -21,12 +21,15 @@
             <ul>
                 <li>Welcome <b>{{ user.username }}!</b></li>
                 <li><a href="{% url 'users:profile' %}" role="button">View profile</a></li>
-                <li><a href="{% url 'users:logout' %}" role="button">Logout</a></li>
+                <form action="{% url 'users:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Log Out</button>
+                  </form>
             </ul>
             {% else %}
             <ul>
                 <li><a href="{% url 'users:signup' %}" role="button">Sign Up</a></li>
-                <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
+                  <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
             </ul>
             {% endif %}
         </div>

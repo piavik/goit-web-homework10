@@ -2,25 +2,26 @@
 
 {% block content %}
 
+{% if messages %}
+{% for message in messages %}
+<div {% if message.tags %} class="alert alert-{{message.tags}}" {% endif %} role="alert">
+    {{message}}
+</div>
+{% endfor %}
+{% endif %}
+
 <form action="{% url 'users:login' %}" method="post">
     {% csrf_token %}
     <div>
-        <label> Username:
-            {{ form.username }}
+        <label>
+            {{ form.as_p }}
         </label>
     </div>
-
-    <div>
-        <label>Password:
-            {{ form.password }}
-        </label>
-    </div>
-
+    
     <div class="grid">
         <button type="submit">Submit</button>
         <button type="reset" class="secondary">Reset</button>
     </div>
-
     <div class="grid">
         <a href="{% url 'users:password_reset' %}">Forgot password</a>
     </div>
