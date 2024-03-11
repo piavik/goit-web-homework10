@@ -1,7 +1,8 @@
-from django.forms import CharField, TextInput, PasswordInput, EmailInput
+from django.forms import CharField, TextInput, PasswordInput, EmailInput, FileInput, ImageField, ModelForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
+from .models import Profile
 
 class RegisterForm(UserCreationForm):
     username = CharField(max_length=100,
@@ -37,3 +38,11 @@ class Avatar(AuthenticationForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+
+class ProfileForm(ModelForm):
+    avatar = ImageField(widget=FileInput())
+
+    class Meta:
+        model = Profile
+        fields = ['avatar']
