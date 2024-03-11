@@ -9,12 +9,10 @@ urlpatterns = [
 
     path('add/', views.add_quote, name='add_quote'),   # add quote
 
+    path('tags/add/', views.add_tag, name='add_tag'),
     path('tags/<int:tag_id>/', views.tag_detail, name='tags'),
-    # path('tags/', views.tag, name='tags'),
 
     path('author/add/', views.add_author, name='add_author'),   # add author
-    path('author/<str:author_id>/', views.author_detail, name='author_detail'),
-
-    # path('author/', views.author, name='author'),              # default?
+    path('author/<str:author_id>/', views.author_detail, name='author_detail')
 
 ]

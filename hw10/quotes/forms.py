@@ -1,6 +1,17 @@
-from django.forms import ModelForm, CharField, TextInput, DateField
-from .models import Tag, Author
+from django.forms import (
+    ModelForm, 
+    CharField, 
+    TextInput,
+    DateField, 
+    DateInput,
+    ModelChoiceField, 
+    ModelMultipleChoiceField, 
+    SelectMultiple
+)
+from .models import Tag, Author, Quote
 
+
+authors = [ author.fullname for author in Author.objects.all() ]
 
 class TagForm(ModelForm):
 
@@ -22,7 +33,7 @@ class AuthorForm(ModelForm):
                          widget=TextInput() )
 
     born_date = DateField(required=False,
-                          widget=TextInput() )
+                          widget=DateInput(attrs={'type': "date"}))
 
     born_location = CharField(min_length=5,
                               max_length=100, 
@@ -37,3 +48,15 @@ class AuthorForm(ModelForm):
     class Meta:
         model = Author
         fields = ['fullname', 'born_date', 'born_location', 'description']
+
+class QuoteForm(ModelForm):
+
+    quote = CharField(min_length=3, 
+                     required=True, 
+                     widget=TextInput() )
+    author = ModelChoiceField(queryset=Author.objects.all())
+    tags = ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=SelectMultiple(attrs={'size':'10'}))
+
+    class Meta:
+        model = Quote
+        fields = ['quote', 'author', 'tags']

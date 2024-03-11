@@ -9,10 +9,10 @@ class Tag(models.Model):
         return f"{self.name}"
         
 class Author(models.Model):
-    fullname = models.CharField(max_length=50, null=False)
-    born_date = models.DateField(auto_now_add=False, null=False)
-    born_location = models.CharField(max_length=100, null=False)
-    description = models.TextField(null=False)
+    fullname = models.CharField(help_text="Full Name", max_length=50, null=False)
+    born_date = models.DateField(help_text="Date of birth", auto_now_add=False, null=False)
+    born_location = models.CharField(help_text="Birth location", max_length=100, null=False)
+    description = models.TextField(help_text="Description", null=False)
 
     def __str__(self):
         return f"{self.fullname}"
