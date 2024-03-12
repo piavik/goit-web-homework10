@@ -1,5 +1,7 @@
 .vscode
 .git
 .venv
+.env
 *config.ini
 *__pycache__*
+sent_emails*

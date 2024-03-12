@@ -1,5 +1,5 @@
 from django.forms import CharField, TextInput, PasswordInput, EmailInput, FileInput, ImageField, ModelForm
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
 
 from .models import Profile
@@ -27,13 +27,6 @@ class RegisterForm(UserCreationForm):
         
 
 class LoginForm(AuthenticationForm):
-
-    class Meta:
-        model = User
-        fields = ['username', 'password']
-
-
-class Avatar(AuthenticationForm):
 
     class Meta:
         model = User

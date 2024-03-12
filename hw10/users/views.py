@@ -12,13 +12,6 @@ class SignupView(generic.CreateView):
     template_name = "users/signup.html"
     form_class = RegisterForm
     success_url = reverse_lazy("users:login")
-      
-
-@login_required
-def logoutuser(request):
-    logout(request)
-    return redirect(to='quotes:main')
-
 
 @login_required
 def profile(request):

@@ -10,23 +10,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-import configparser
-import psycopg2
+# import configparser
+# import psycopg2
+import os
 
 from pathlib import Path
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-config = configparser.ConfigParser()
-config.read(f'{BASE_DIR}/config.ini')
+# config = configparser.ConfigParser()
+# config.read(f'{BASE_DIR}/config.ini')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config.get('DJANGO', 'KEY'),
+# SECRET_KEY = config.get('DJANGO', 'KEY'),
+SECRET_KEY = os.environ.get('KEY'),
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -92,21 +96,20 @@ DATABASES = {
     "default": {
     # },
     # 'quotes': {
-        'ENGINE':   config.get('QUOTES_DB', 'ENGINE'),
-        'NAME':     config.get('QUOTES_DB', 'DB_NAME'),
-        'USER':     config.get('QUOTES_DB', 'USER'),
-        'PASSWORD': config.get('QUOTES_DB', 'PASS'),
-        'HOST':     config.get('QUOTES_DB', 'HOST'),
-        'PORT':     config.get('QUOTES_DB', 'PORT'),
+        # 'ENGINE':   config.get('QUOTES_DB', 'ENGINE'),
+        # 'NAME':     config.get('QUOTES_DB', 'DB_NAME'),
+        # 'USER':     config.get('QUOTES_DB', 'USER'),
+        # 'PASSWORD': config.get('QUOTES_DB', 'PASS'),
+        # 'HOST':     config.get('QUOTES_DB', 'HOST'),
+        # 'PORT':     config.get('QUOTES_DB', 'PORT'),
+        'ENGINE':   os.environ.get('POSTGRESS_ENGINE'),
+        'NAME':     os.environ.get('POSTGRESS_DB_NAME'),
+        'USER':     os.environ.get('POSTGRESS_USER'),
+        'PASSWORD': os.environ.get('POSTGRESS_PASS'),
+        'HOST':     os.environ.get('POSTGRESS_HOST'),
+        'PORT':     os.environ.get('POSTGRESS_PORT'),
     },
-    # 'users': {
-    #     'ENGINE':   config.get('USERS_DB', 'ENGINE'),
-    #     'NAME':     config.get('USERS_DB', 'DB_NAME'),
-    #     'USER':     config.get('USERS_DB', 'USER'),
-    #     'PASSWORD': config.get('USERS_DB', 'PASS'),
-    #     'HOST':     config.get('USERS_DB', 'HOST'),
-    #     'PORT':     config.get('USERS_DB', 'PORT'),
-    # },
+
 }
 
 
@@ -158,4 +161,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND   = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
+EMAIL_HOST          = os.environ.get("MAIL_SERVER")
+EMAIL_PORT          = os.environ.get("MAIL_PORT")
+EMAIL_USE_SSL       = True
+EMAIL_USE_TLS       = False
+EMAIL_HOST_USER     = os.environ.get("MAIL_USERNAME")
+EMAIL_HOST_PASSWORD = os.environ.get("MAIL_PASSWORD")
+DEFAULT_FROM_EMAIL  = EMAIL_HOST_USER
